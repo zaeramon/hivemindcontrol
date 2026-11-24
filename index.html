@@ -63,7 +63,18 @@
    </div>
   </section>
   <section id="page-projects" class="hidden"><div class="card"><div class="sectionhead"><h3>Project portfolio</h3><span>Shared project registry</span></div><div id="projectsFull"></div></div></section>
-  <section id="page-knowledge" class="hidden"><div class="grid" id="knowledgeStats"></div><div class="card section"><div class="sectionhead"><h3>Knowledge collections</h3><span>One expandable entry per subject</span></div><div id="knowledgeCollections"></div></div></section>
+  <section id="page-knowledge" class="hidden">
+   <div class="grid" id="knowledgeStats"></div>
+   <div class="card section">
+    <div class="sectionhead"><h3>Markdown knowledge files</h3><span>Private GitHub repository</span></div>
+    <p class="muted" style="font-size:11px;margin:0 0 12px">Browse the saved learning documents, or open the standard submission template to start a new Markdown entry. Save new reusable knowledge under the appropriate folder in knowledge/.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+     <a class="btn" href="https://github.com/zaeramon/hive-mind/tree/main/knowledge" target="_blank" rel="noopener noreferrer">Browse learned MD directory ↗</a>
+     <a class="btn primary" href="https://github.com/zaeramon/hive-mind/blob/main/templates/LEARNING_SUBMISSION.md" target="_blank" rel="noopener noreferrer">Start a new MD · open template ↗</a>
+    </div>
+   </div>
+   <div class="card section"><div class="sectionhead"><h3>Knowledge collections</h3><span>One expandable entry per subject</span></div><div id="knowledgeCollections"></div></div>
+  </section>
   <section id="page-family" class="hidden"><div class="card"><div class="sectionhead"><h3>Hive Mind family tree</h3><span id="familySummary">Agent knowledge and project lineage</span></div><p class="sub">Follow each agent’s knowledge, original projects and later contributions. Project origin is separate from collaboration history.</p><div id="familyTree"></div></div></section>
   <section id="page-agents" class="hidden">
    <div class="notice">Each agent gets its own Hive Mind token. The token is shown only once when created. GitHub repository access is granted separately through each agent's GitHub integration; never share a personal GitHub token or Supabase service-role key.</div>
