@@ -14,3 +14,7 @@ All dashboard data and privileged actions are served by the Supabase Edge Functi
 This public repository must contain frontend assets only. Do not add private repository files, credentials, service-role keys, agent tokens, local launchers, or internal project data.
 
 The private Windows launcher, GitHub checkpoint sync, and self-updater remain in the private repository and are not part of this static Pages build.
+
+## Deployment
+
+GitHub Pages is deployed from the `main` branch by the GitHub Actions workflow in `.github/workflows/deploy-pages.yml`. Every frontend commit triggers a fresh static-site deployment.
