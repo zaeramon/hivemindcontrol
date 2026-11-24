@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0c1020"><title>Hive Mind — Control Centre</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0e19;--panel:#111827;--panel2:#151e30;--line:#263247;--muted:#8b9bb4;--text:#edf3ff;--cyan:#65e4e0;--violet:#a99bff;--green:#62d7a4;--amber:#f3c978;--red:#ff8290}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -15%,#1c2a47 0,transparent 42%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.wrap{max-width:1440px;margin:auto;padding:26px}.top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:26px}.brand{display:flex;align-items:center;gap:13px}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#65e4e0,#8e7bff);display:grid;place-items:center;color:#0a1020;font-weight:900;font-size:20px;box-shadow:0 0 35px #65e4e033}.brand h1{font-size:17px;letter-spacing:.16em;margin:0}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.2em;margin-top:2px}.topright{display:flex;align-items:center;gap:10px}.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);font-size:11px}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px #62d7a4}
+.btn{border:1px solid var(--line);border-radius:10px;background:#1a263a;color:var(--text);padding:9px 13px;font-weight:600}.btn:hover{border-color:#617695;background:#202e46}.btn.primary{background:linear-gradient(120deg,#65e4e0,#9b8dff);border:0;color:#07101d}.btn.danger{border-color:#6a3543;color:#ffabb2;background:#2a1721}.btn.small{padding:6px 9px;font-size:11px}.login{max-width:460px;margin:9vh auto;background:#111827;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 25px 90px #0008}.login h2{font-size:22px;margin:0 0 6px}.sub{color:var(--muted)}.field{display:grid;gap:6px;margin:15px 0}.field label{font-size:12px;color:#b9c7da}.field input,.field select,.field textarea{width:100%;padding:12px 13px;border-radius:10px;border:1px solid var(--line);background:#0b1220;color:var(--text);outline:none}.field textarea{resize:vertical;min-height:100px;font:inherit}.knowledge-group{border:1px solid var(--line);border-radius:12px;margin:10px 0;background:#0d1625;overflow:hidden}.knowledge-group summary{list-style:none;cursor:pointer;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.knowledge-group summary::-webkit-details-marker{display:none}.knowledge-group summary:after{content:"＋";color:var(--cyan);font-size:18px}.knowledge-group[open] summary:after{content:"−"}.knowledge-group .group-title{font-weight:700}.knowledge-group .group-meta{display:block;color:var(--muted);font-size:10px;margin-top:3px}.knowledge-resources{padding:0 14px 12px}.knowledge-resource{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:11px 0;border-top:1px solid #263247}.knowledge-resource strong{font-size:12px}.knowledge-resource p{margin:3px 0;color:var(--muted);font-size:10px}.command-card{border-top:1px solid var(--line);padding:14px 0}.command-card:first-child{border-top:0}.command-top{display:flex;justify-content:space-between;gap:10px}.command-response{white-space:pre-wrap;background:#0b1424;border:1px solid #263247;border-radius:9px;padding:12px;margin-top:10px;color:#c6d5e9;font-size:12px;overflow-wrap:anywhere}.field input:focus,.field select:focus{border-color:var(--cyan)}.login .btn{width:100%;margin-top:8px}.tabs{display:flex;gap:8px;margin:18px 0}.tabs button{flex:1}.msg{margin-top:12px;color:var(--amber);font-size:12px;min-height:18px}.layout{display:grid;grid-template-columns:205px minmax(0,1fr);gap:22px}.side{border:1px solid var(--line);background:#101827b8;border-radius:16px;padding:12px;height:max-content;position:sticky;top:18px}.side button{width:100%;text-align:left;border:0;background:transparent;color:var(--muted);padding:11px;border-radius:9px;margin:2px 0}.side button.active,.side button:hover{background:#1b2940;color:var(--text)}.side .group{font-size:9px;letter-spacing:.18em;color:#62738e;padding:14px 10px 5px}.content{min-width:0}.pagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:18px}.pagehead h2{margin:0;font-size:23px}.pagehead p{margin:4px 0 0;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.card{background:linear-gradient(145deg,#141f31,#101725);border:1px solid var(--line);border-radius:15px;padding:17px;min-width:0}.statlabel{font-size:11px;color:var(--muted)}.stat{font-size:29px;font-weight:750;letter-spacing:-.04em;margin:5px 0}.statnote{font-size:10px;color:#71839f}.section{margin-top:17px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.sectionhead h3{font-size:13px;margin:0}.sectionhead span{font-size:11px;color:var(--muted)}.twocol{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.project{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid #263247}.project:last-child{border:0}.project strong{display:block;font-size:13px}.project p{margin:3px 0;color:var(--muted);font-size:11px}.status{font-size:10px;padding:4px 8px;border-radius:999px;background:#1b3040;color:var(--cyan);white-space:nowrap}.status.planning,.status.needs-review{background:#382d1c;color:var(--amber)}.status.paused,.status.archived{background:#292f3c;color:#a8b2c5}.status.completed,.status.active{background:#16352d;color:var(--green)}.rowitem{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #263247}.rowitem:last-child{border:0}.rowitem strong{font-size:12px}.rowitem small{display:block;color:var(--muted);font-size:10px}.tag{font-size:10px;border:1px solid #34445d;border-radius:6px;padding:3px 6px;color:#b5c5db}.muted{color:var(--muted)}.empty{padding:22px;text-align:center;color:var(--muted);font-size:12px}.bars{display:grid;gap:10px}.barrow{display:grid;grid-template-columns:105px 1fr 35px;gap:10px;align-items:center;font-size:11px;color:var(--muted)}.bar{height:7px;border-radius:99px;background:#263247;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--violet))}.activity{border-left:1px solid #35445c;margin-left:5px;padding-left:17px}.event{position:relative;padding:0 0 17px}.event:before{content:"";position:absolute;left:-22px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px #65e4e055}.event strong{font-size:12px}.event small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.agentgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.agent{background:#121c2c;border:1px solid var(--line);border-radius:13px;padding:14px}.agenttop{display:flex;justify-content:space-between;gap:8px}.agent h4{margin:0;font-size:13px}.agent p{margin:3px 0;color:var(--muted);font-size:10px}.perms{display:flex;gap:5px;flex-wrap:wrap;margin-top:11px}.tokenbox{border:1px solid #4e6687;background:#0b1424;border-radius:12px;padding:14px;margin-top:12px;overflow-wrap:anywhere}.tokenbox code{font-size:12px;color:var(--cyan)}.notice{border:1px solid #55482d;background:#2a2418;color:#f0d7a0;padding:12px;border-radius:10px;font-size:11px;margin:12px 0}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:12px}.table th{text-align:left;color:var(--muted);font-size:10px;font-weight:600;padding:10px;border-bottom:1px solid var(--line)}.table td{padding:12px 10px;border-bottom:1px solid #263247}.footer{color:#61718b;font-size:10px;margin:25px 0 10px;display:flex;justify-content:space-between}.error{color:var(--red)}@media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.twocol{grid-template-columns:1fr}}@media(max-width:680px){.wrap{padding:15px}.layout{grid-template-columns:1fr}.side{position:static;display:flex;overflow:auto}.side .group{display:none}.side button{white-space:nowrap;width:auto}.agentgrid{grid-template-columns:1fr}.top{align-items:flex-start}.topright{flex-direction:column;align-items:flex-end}.grid{gap:8px}.card{padding:13px}.stat{font-size:24px}.pagehead{align-items:flex-start}.footer{display:block}}
+.app-version{font-variant-numeric:tabular-nums;letter-spacing:.04em;color:var(--cyan)}
+.hive-mascot{position:relative;width:min(100%,620px);height:290px;margin:14px auto 18px;overflow:hidden;border:1px solid #d9e1e6;border-radius:13px;background:#fff;box-shadow:0 12px 28px #0002}
+.hive-diorama-canvas{display:block;width:100%;height:100%;outline:none;image-rendering:pixelated;touch-action:pan-y}
+.hive-diorama-canvas:focus-visible{outline:2px solid #237d9f;outline-offset:-3px}
+.diorama-hint{position:absolute;right:9px;bottom:7px;padding:4px 7px;border-radius:5px;background:#ffffffd9;color:#53616b;font:8px/1.2 ui-monospace,monospace;letter-spacing:.06em;pointer-events:none}
+.diorama-fallback{position:absolute;inset:0;display:grid;place-items:center;padding:20px;background:#fff;color:#53616b;font-size:11px;text-align:center}
+.diorama-fallback[hidden]{display:none}
+.family-root{border:1px solid var(--cyan);border-radius:16px;padding:18px;text-align:center;background:linear-gradient(135deg,#10253a,#101a2b);max-width:520px;margin:10px auto 24px}.family-root h2{margin:0 0 5px;font-size:20px}.family-root p{margin:0;color:var(--muted);font-size:11px}.family-branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.family-branch{border:1px solid var(--line);border-radius:13px;background:#0d1625;overflow:hidden}.family-branch summary{cursor:pointer;list-style:none;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}.family-branch summary::-webkit-details-marker{display:none}.family-branch summary:after{content:"＋";color:var(--cyan)}.family-branch[open] summary:after{content:"−"}.family-agent-name{font-weight:750}.family-agent-meta{font-size:10px;color:var(--muted);margin-top:3px}.family-body{padding:0 14px 14px}.family-block{border-top:1px solid #263247;padding:11px 0}.family-block h5{margin:0 0 7px;font-size:11px;color:#9ccce3;text-transform:uppercase;letter-spacing:.06em}.family-entry{font-size:11px;padding:6px 0;border-top:1px solid #202c3e}.family-entry small{display:block;color:var(--muted);margin-top:3px}.family-owner{border:1px dashed #53627a;border-radius:12px;padding:13px;margin:0 auto 16px;max-width:520px;text-align:center}.family-owner strong{display:block}.family-empty{font-size:11px;color:var(--muted);padding:4px 0}.family-note{font-size:10px;color:var(--muted);margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="brand"><div class="mark">H</div><div><h1>HIVE MIND</h1><small>SHARED INTELLIGENCE NETWORK</small></div></div>
+ <div class="topright"><span class="pill app-version" id="appVersion">PUBLIC DASHBOARD v1.1.8</span><span class="pill"><i class="dot"></i><span id="topStatus">AUTH REQUIRED</span></span><button class="btn small hidden" id="signout">Sign out</button></div>
+</header>
+<section id="loginView" class="login">
+ <div class="brand" style="margin-bottom:20px"><div class="mark">H</div><div><h1>CONTROL CENTRE</h1><small>PRIVATE ADMIN ACCESS</small></div></div>
+ <h2 id="authTitle">Welcome back</h2><p class="sub" id="authSub">Sign in to monitor the Hive Mind network.</p>
+ <div class="tabs"><button class="btn primary" id="loginTab">Sign in</button><button class="btn" id="signupTab">Create account</button></div>
+ <form id="authForm">
+  <div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="username" required></div>
+  <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" minlength="8" required></div>
+  <button class="btn primary" id="authSubmit" type="submit">Sign in</button>
+ </form>
+ <div class="msg" id="authMessage"></div>
+ <div class="notice">The first account must be activated as the Hive Mind Super Admin before private project data is shown. Creating an account does not automatically grant administrator access.</div>
+</section>
+<div id="appView" class="layout hidden">
+ <aside class="side">
+  <div class="group">WORKSPACE</div>
+  <button class="active" data-page="overview">◈ &nbsp; Overview</button>
+  <button data-page="projects">▦ &nbsp; Projects</button>
+  <button data-page="knowledge">◇ &nbsp; Knowledge</button>
+  <div class="group">NETWORK</div>
+  <button data-page="family">♧ &nbsp; Hive Family</button>
+  <button data-page="agents">◎ &nbsp; Agents & access</button>
+  <button data-page="activity">↗ &nbsp; Activity log</button>
+ </aside>
+ <main class="content">
+  <div class="pagehead"><div><h2 id="pageTitle">Network overview</h2><p id="pageSub">A live view of shared projects, knowledge and connected agents.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="btn" id="refresh">↻ Refresh</button></div></div>
+  <section id="page-overview">
+   <div class="grid" id="stats"></div>
+   <div class="twocol section">
+    <div class="card"><div class="sectionhead"><h3>Shared projects</h3><span id="projectCount">—</span></div><div id="projectPreview"></div></div>
+    <div class="card"><div class="sectionhead"><h3>Knowledge library</h3><span>Published records</span></div><div class="bars" id="knowledgeBars"></div></div>
+   </div>
+   <div class="twocol section">
+    <div class="card"><div class="sectionhead"><h3>Recent network activity</h3><span>Latest events</span></div><div class="activity" id="activityPreview"></div></div>
+    <div class="card"><div class="sectionhead"><h3>Agent connections</h3><span id="agentCount">—</span></div><div id="agentPreview"></div></div>
+   </div>
+  </section>
+  <section id="page-projects" class="hidden"><div class="card"><div class="sectionhead"><h3>Project portfolio</h3><span>Shared project registry</span></div><div id="projectsFull"></div></div></section>
+  <section id="page-knowledge" class="hidden"><div class="grid" id="knowledgeStats"></div><div class="card section"><div class="sectionhead"><h3>Knowledge collections</h3><span>One expandable entry per subject</span></div><div id="knowledgeCollections"></div></div></section>
+  <section id="page-family" class="hidden"><div class="card"><div class="sectionhead"><h3>Hive Mind family tree</h3><span id="familySummary">Agent knowledge and project lineage</span></div><p class="sub">Follow each agent’s knowledge, original projects and later contributions. Project origin is separate from collaboration history.</p><div id="familyTree"></div></div></section>
+  <section id="page-agents" class="hidden">
+   <div class="notice">Each agent gets its own Hive Mind token. The token is shown only once when created. GitHub repository access is granted separately through each agent's GitHub integration; never share a personal GitHub token or Supabase service-role key.</div>
+   <div class="card"><div class="sectionhead"><h3>Issue agent access</h3><span>Individual identity + permissions</span></div>
+    <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+     <div class="field"><label>Agent identity</label><input id="newAgent" value="chatgpt" maxlength="64" placeholder="e.g. claude-2"></div>
+     <div class="field"><label>Credential label</label><input id="newLabel" value="Hive Mind primary connection" maxlength="100"></div>
+    </div>
+    <div class="field"><label>Access level</label><select id="newPermission"><option value="super">Super Admin — full Hive Mind access</option><option value="collaborator">Collaborator — read, submit, publish</option><option value="reader">Read only</option></select></div>
+    <button class="btn primary" id="issueToken">Generate agent credential</button><div id="newToken" class="tokenbox hidden"></div>
+   </div>
+   <div class="card section"><div class="sectionhead"><h3>Registered credentials</h3><span>Revoke or review access</span></div><div id="agentsFull"></div></div>
+  </section>
+  <section id="page-activity" class="hidden"><div class="card"><div class="sectionhead"><h3>Audit and contribution history</h3><span>Recorded actions</span></div><div id="activityFull"></div></div></section>
+  <div class="footer"><span>HIVE MIND • PRIVATE OPERATIONS CONSOLE</span><span id="lastUpdated">Not yet refreshed</span></div>
+ </main>
+</div>
+</div>
+<script>
+const SUPABASE_URL = "https://ulbkkjgbmvjxqbqurtux.supabase.co";
+let pendingUpdate = null;
+const SUPABASE_KEY = "sb_publishable_IQyoQoTLB94CpfyOgyHTog_IXwOHEMq";
+const FUNCTION_URL = SUPABASE_URL + "/functions/v1/hive-mind-dashboard";
+let accessToken = sessionStorage.getItem("hive_dashboard_access");
+let refreshToken = sessionStorage.getItem("hive_dashboard_refresh");
+let signupMode = false;
+let data = null;
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const nice = value => String(value || "unknown").replace(/[-_]/g," ").replace(/\b\w/g,c=>c.toUpperCase());
+const date = value => value ? new Date(value).toLocaleString() : "Never";
+async function authRequest(path,body){
+ const r=await fetch(SUPABASE_URL+"/auth/v1/"+path,{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY},body:JSON.stringify(body)});
+ const j=await r.json().catch(()=>({}));
+ if(!r.ok) throw new Error(j.msg||j.message||j.error_description||"Authentication failed");
+ return j;
+}
+async function api(path,options={}){
+ const headers={"Content-Type":"application/json","apikey":SUPABASE_KEY,...(options.headers||{})};
+ if(accessToken) headers.Authorization="Bearer "+accessToken;
+ let r=await fetch(FUNCTION_URL+path,{...options,headers});
+ if(r.status===401 && refreshToken){
+  const s=await authRequest("token?grant_type=refresh_token",{refresh_token:refreshToken});
+  accessToken=s.access_token;refreshToken=s.refresh_token;
+  sessionStorage.setItem("hive_dashboard_access",accessToken);sessionStorage.setItem("hive_dashboard_refresh",refreshToken);
+  headers.Authorization="Bearer "+accessToken;
+  r=await fetch(FUNCTION_URL+path,{...options,headers});
+ }
+ const j=await r.json().catch(()=>({}));
+ if(!r.ok) throw new Error(j.error||j.message||"Request failed ("+r.status+")");
+ return j;
+}
+function showAuth(message){$("loginView").classList.remove("hidden");$("appView").classList.add("hidden");$("signout").classList.add("hidden");$("topStatus").textContent="AUTH REQUIRED";if(message)$("authMessage").textContent=message;}
+function showApp(){ $("loginView").classList.add("hidden");$("appView").classList.remove("hidden");$("signout").classList.remove("hidden");$("topStatus").textContent="PRIVATE ADMIN SESSION"; }
+$("loginTab").onclick=()=>setMode(false);$("signupTab").onclick=()=>setMode(true);
+function setMode(value){signupMode=value;$("loginTab").className=value?"btn":"btn primary";$("signupTab").className=value?"btn primary":"btn";$("authTitle").textContent=value?"Create your owner account":"Welcome back";$("authSub").textContent=value?"Create the first Hive Mind dashboard account.":"Sign in to monitor the Hive Mind network.";$("authSubmit").textContent=value?"Create account":"Sign in";$("password").autocomplete=value?"new-password":"current-password";$("authMessage").textContent="";}
+$("authForm").onsubmit=async e=>{e.preventDefault();$("authSubmit").disabled=true;$("authMessage").textContent="Please wait…";try{
+ const email=$("email").value.trim(),password=$("password").value;
+ if(signupMode){const result=await authRequest("signup",{email,password});if(result.access_token){accessToken=result.access_token;refreshToken=result.refresh_token;sessionStorage.setItem("hive_dashboard_access",accessToken);sessionStorage.setItem("hive_dashboard_refresh",refreshToken);await loadDashboard();}else{$("authMessage").textContent="Account created. Check your email if confirmation is enabled, then sign in. Ask the Hive Mind owner to activate Super Admin access."}}
+ else{const s=await authRequest("token?grant_type=password",{email,password});accessToken=s.access_token;refreshToken=s.refresh_token;sessionStorage.setItem("hive_dashboard_access",accessToken);sessionStorage.setItem("hive_dashboard_refresh",refreshToken);await loadDashboard();}
+ }catch(err){$("authMessage").textContent=err.message;}finally{$("authSubmit").disabled=false;}};
+$("signout").onclick=()=>{accessToken=null;refreshToken=null;sessionStorage.removeItem("hive_dashboard_access");sessionStorage.removeItem("hive_dashboard_refresh");showAuth("You have signed out.");};
+function status(v){return '<span class="status '+esc(v)+'">'+esc(nice(v))+'</span>'}
+function stat(label,value,note){return '<div class="card"><div class="statlabel">'+esc(label)+'</div><div class="stat">'+esc(value)+'</div><div class="statnote">'+esc(note)+'</div></div>'}
+function makeKnowledgeGroups(items){const byKey=new Map(items.map(x=>[x.item_key,x]));const owner=new Map();for(const x of items){for(const k of (x.metadata?.companion_items||[]))owner.set(k,x.item_key);}const groups=new Map();for(const x of items){const root=owner.get(x.item_key)||(x.metadata?.companion_items?.length?x.item_key:null)||x.metadata?.group_key||x.metadata?.collection_key||x.item_key.split(".").slice(1,2)[0]||x.item_key;if(!groups.has(root))groups.set(root,{key:root,main:byKey.get(root)||x,items:[]});groups.get(root).items.push(x);}return [...groups.values()].sort((a,b)=>a.main.title.localeCompare(b.main.title));}
+function commandMarkup(rows){return rows.length?rows.map(c=>'<div class="command-card"><div class="command-top"><div><strong>'+esc(c.command_text)+'</strong><small class="muted" style="display:block;margin-top:5px">'+esc(date(c.created_at))+' · '+esc(c.assigned_agent||"chatgpt")+'</small></div>'+status(c.status)+'</div>'+(c.response?'<div class="command-response">'+esc(c.response)+'</div>':"")+(c.error_message?'<div class="command-response error">'+esc(c.error_message)+'</div>':"")+'</div>').join(""):'<div class="empty">No commands submitted yet.</div>';}
+async function loadCommands(){try{const r=await api("/api/commands");$("commandsFull").innerHTML=commandMarkup(r.commands||[]);}catch(e){$("commandsFull").innerHTML='<div class="empty error">'+esc(e.message)+'</div>';}}
+function familyTreeMarkup(d){
+ const projects=d.projects||[],items=d.items||[],updates=d.updates||[],conversations=d.conversations||[],credentials=d.agents||[];
+ const projectById=new Map(projects.map(p=>[p.id,p]));
+ const norm=v=>String(v||"").toLowerCase();
+ const chat=v=>["chatgpt","chatgpt-1"].includes(norm(v));
+ const display=v=>chat(v)?"ChatGPT-1":norm(v)==="human"?"Owner":nice(v||"Unknown");
+ const ownerProjects=projects.filter(p=>norm(p.owner_agent)==="human");
+ const keys=new Set(credentials.filter(a=>a.agent_id!=="human").map(a=>a.agent_id));
+ if(items.some(x=>chat(x.contributor))||updates.some(x=>chat(x.contributor))||conversations.some(x=>chat(x.contributor)))keys.add("chatgpt-1");
+ const nodes=[...keys].map(key=>{
+  const isChat=chat(key),aliases=isChat?["chatgpt","chatgpt-1"]:[key];
+  const creds=credentials.filter(a=>aliases.includes(norm(a.agent_id)));
+  const knowledge=items.filter(x=>aliases.includes(norm(x.contributor)));
+  const originated=projects.filter(p=>aliases.includes(norm(p.owner_agent)));
+  const ups=updates.filter(x=>aliases.includes(norm(x.contributor)));
+  const convs=conversations.filter(x=>aliases.includes(norm(x.contributor)));
+  const contributed=new Map();[...ups,...convs].forEach(x=>{const p=projectById.get(x.project_id);if(p)contributed.set(p.project_key,p);});
+  const active=creds.some(c=>c.active),label=isChat?"Primary ChatGPT operator":(creds[0]?.label||"Registered agent");
+  const perms=[...new Set(creds.flatMap(c=>c.permissions||[]))];
+  const entry=(title,meta="")=>'<div class="family-entry"><strong>'+esc(title)+'</strong>'+(meta?'<small>'+esc(meta)+'</small>':"")+'</div>';
+  const section=(title,html)=>'<div class="family-block"><h5>'+title+'</h5>'+(html||'<div class="family-empty">No records yet.</div>')+'</div>';
+  const knowHtml=knowledge.map(x=>entry(x.title,nice(x.item_type)+" · "+x.item_key)).join("");
+  const originHtml=originated.map(x=>entry(x.title,"Original project owner: "+display(x.owner_agent))).join("");
+  const contributedHtml=[...contributed.values()].map(p=>entry(p.title,"Agent has recorded project contributions")).join("");
+  const history=[...ups.map(x=>({title:x.title,kind:"Project update",at:x.created_at})),...convs.map(x=>({title:x.conversation_title,kind:"Conversation learning",at:x.created_at}))].sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)).slice(0,10).map(x=>entry(x.title,x.kind+" · "+date(x.at))).join("");
+  return '<details class="family-branch"><summary><span><span class="family-agent-name">'+esc(display(key))+'</span><span class="family-agent-meta">'+esc(label)+' · '+(isChat?"ChatGPT session":(active?"Connected":"No active credential"))+'</span></span><span class="tag">'+knowledge.length+' knowledge · '+originated.length+' originated</span></summary><div class="family-body">'+section("Knowledge learned",knowHtml)+section("Projects originated",originHtml)+section("Projects contributed to",contributedHtml)+section("Contribution history",history)+(perms.length?'<div class="family-note">Permissions: '+esc(perms.join(", "))+'</div>':"")+'</div></details>';
+ }).join("");
+ const ownerHtml=ownerProjects.map(p=>'<div class="family-entry"><strong>'+esc(p.title)+'</strong><small>Original owner: human / project owner · '+esc(p.project_key)+'</small></div>').join("");
+ $("familySummary").textContent=keys.size+" agent identities · "+projects.length+" projects · "+items.length+" published knowledge records";
+ $("familyTree").innerHTML=`<div class="family-root"><h2>◈ HIVE MIND</h2><p>Shared intelligence · projects · agent contributions</p><div class="hive-mascot"><canvas class="hive-diorama-canvas" aria-label="Animated three-dimensional pixel-art miniature of the Hive Mind network" tabindex="0"></canvas><div class="diorama-hint">DRAG TO ORBIT · SCROLL TO ZOOM · PRESS R TO RESET</div><div class="diorama-fallback" hidden>3D diorama unavailable in this browser.</div></div></div><div class="family-branches">${nodes || '<div class="empty">No agent identities have contributed yet.</div>'}<div class="family-owner"><strong>Owner / Founder</strong><span class="family-stat">Controls the Hive Mind network and project ownership</span><div class="family-block"><h5>Projects originally registered by owner</h5>${ownerHtml || '<div class="family-empty">No owner-origin projects recorded.</div>'}</div></div><p class="family-note">ChatGPT-1 is the display identity for historical contributions recorded as “chatgpt”. Historical attribution is preserved. New contributions should use the exact agent identity.`
+}
+const PROJECT_NOTES_KEY="hive_project_account_notes_v1";
+function readProjectNotes(){
+ try{return JSON.parse(localStorage.getItem(PROJECT_NOTES_KEY)||"{}");}
+ catch{return {};}
+}
+function projectNotesMarkup(project){
+ const notes=readProjectNotes()[project.id]||{};
+ return '<div class="project-notes" data-project-id="'+esc(project.id)+'" style="border-top:1px solid var(--line);padding-top:12px;margin-top:10px"><div class="sectionhead"><h3>Account notes</h3><span>Shared notes · GitHub checkpoints</span></div><p class="muted" style="font-size:10px;margin:0 0 8px">Enter plain-text account notes. They are not fetched from GitHub or Supabase; use Send Update to publish them to the private Hive Mind repository.</p><div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:10px"><div class="field" style="margin:0"><label>GitHub account email</label><input type="text" data-note="githubEmail" autocomplete="off" placeholder="e.g. account@example.com" value="'+esc(notes.githubEmail||"")+'"></div><div class="field" style="margin:0"><label>Supabase account email</label><input type="text" data-note="supabaseEmail" autocomplete="off" placeholder="e.g. account@example.com" value="'+esc(notes.supabaseEmail||"")+'"></div></div><div style="display:flex;align-items:center;gap:10px;margin-top:10px"><button class="btn small" type="button" data-save-project-notes>Save account notes</button><span class="muted" data-save-status style="font-size:10px"></span></div></div>';
+}
+$("projectsFull").addEventListener("click",event=>{
+ const button=event.target.closest("[data-save-project-notes]");
+ if(!button)return;
+ const panel=button.closest(".project-notes");
+ const projectId=panel?.dataset.projectId;
+ if(!projectId)return;
+ const all=readProjectNotes();
+ all[projectId]={githubEmail:panel.querySelector('[data-note="githubEmail"]').value.trim(),supabaseEmail:panel.querySelector('[data-note="supabaseEmail"]').value.trim(),savedAt:new Date().toISOString()};
+ try{
+  localStorage.setItem(PROJECT_NOTES_KEY,JSON.stringify(all));
+  panel.querySelector("[data-save-status]").textContent="Saved locally · press Send Update to share.";
+ }catch(error){
+  panel.querySelector("[data-save-status]").textContent="Could not save notes locally.";
+ }
+});
+function render(d){
+ data=d;showApp();const c=d.counts;
+ $("stats").innerHTML=stat("Shared projects",c.projects,"Registered project spaces")+stat("Published knowledge",c.active_items,"Active shared records")+stat("Pending reviews",c.pending_items,"Items awaiting review")+stat("Active agent credentials",c.active_agents,"Registered agent connections");
+ $("projectCount").textContent=d.projects.length+" projects";
+ $("projectPreview").innerHTML=d.projects.slice(0,5).map(p=>'<div class="project"><div><strong>'+esc(p.title)+'</strong><p>'+esc(p.summary)+'</p></div>'+status(p.status)+'</div>').join("")||'<div class="empty">No projects registered.</div>';
+ const types=d.items_by_type;const max=Math.max(1,...Object.values(types));
+ $("knowledgeBars").innerHTML=Object.entries(types).map(([k,v])=>'<div class="barrow"><span>'+esc(nice(k))+'</span><div class="bar"><i style="width:'+Math.round(v/max*100)+'%"></i></div><b>'+v+'</b></div>').join("")||'<div class="empty">No published items.</div>';
+ $("activityPreview").innerHTML=activityMarkup(d.activity.slice(0,5));
+ $("agentCount").textContent=d.agents.length+" credentials";
+ $("agentPreview").innerHTML=d.agents.slice(0,5).map(a=>'<div class="rowitem"><div><strong>'+esc(nice(a.agent_id))+'</strong><small>'+esc(a.label)+'</small></div><span class="tag">'+(a.active?"CONNECTED":"REVOKED")+'</span></div>').join("")||'<div class="empty">No credentials.</div>';
+ $("projectsFull").innerHTML=d.projects.map(p=>'<div class="card section" style="padding:14px"><div class="project"><div><strong>'+esc(p.title)+'</strong><p>'+esc(p.summary)+'</p><p>'+esc(p.project_key)+' · Updated '+esc(date(p.updated_at))+'</p>'+(p.repository_url?'<a class="tag" href="'+esc(p.repository_url)+'" target="_blank" rel="noreferrer">Repository ↗</a>':'')+'</div>'+status(p.status)+'</div>'+projectNotesMarkup(p)+'</div>').join("")||'<div class="empty">No projects registered.</div>';
+ const groups=makeKnowledgeGroups(d.items);
+ $("knowledgeStats").innerHTML=stat("Knowledge subjects",groups.length,"Unique top-level collections")+stat("Resources",d.items.length,"Individual skills and reference bundles");
+ $("knowledgeCollections").innerHTML=groups.map(g=>'<details class="knowledge-group"><summary><span><span class="group-title">'+esc(g.main.title)+'</span><span class="group-meta">'+esc(g.main.summary||g.main.item_key)+'</span></span><span class="tag">'+g.items.length+' resource(s)</span></summary><div class="knowledge-resources">'+g.items.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(x=>'<div class="knowledge-resource"><div><strong>'+esc(x.title)+'</strong><p>'+esc(x.summary)+'</p><p>'+esc(x.item_key)+' · '+esc(nice(x.item_type))+' · '+esc(x.contributor)+'</p></div><div>'+status(x.validation)+'</div></div>').join("")+'</div></details>').join("")||'<div class="empty">No published knowledge.</div>';
+ familyTreeMarkup(d);
+ $("agentsFull").innerHTML=d.agents.map(agentMarkup).join("")||'<div class="empty">No registered agent credentials.</div>';
+ $("activityFull").innerHTML=activityMarkup(d.activity);
+ $("lastUpdated").textContent="Updated "+new Date().toLocaleTimeString();
+}
+function activityMarkup(rows){return rows.length?rows.map(a=>'<div class="event"><strong>'+esc(a.title||nice(a.action))+'</strong><small>'+esc(a.actor_agent||a.contributor||"system")+' · '+esc(date(a.created_at))+'</small><small>'+esc(a.description||a.action||"Contribution")+'</small></div>').join(""):'<div class="empty">No activity recorded yet. New submissions and reviews will appear here.</div>'}
+function agentMarkup(a){return '<div class="agent"><div class="agenttop"><div><h4>'+esc(nice(a.agent_id))+(a.agent_id==="chatgpt"?' <span class="tag">SUPER ADMIN</span>':'')+'</h4><p>'+esc(a.label)+'</p></div>'+ (a.active?'<span class="status active">Active</span>':'<span class="status archived">Revoked</span>')+'</div><div class="perms">'+a.permissions.map(p=>'<span class="tag">'+esc(p)+'</span>').join("")+'</div><p>Last used: '+esc(date(a.last_used_at))+'</p><p>Created: '+esc(date(a.created_at))+'</p>'+(a.active?'<button class="btn danger small" style="margin-top:8px" onclick="revokeAgent(\''+esc(a.id)+'\')">Revoke credential</button>':'')+'</div>'}
+async function loadDashboard(){try{const d=await api("/api/overview");render(d);}catch(err){if(String(err.message).toLowerCase().includes("super admin")||String(err.message).includes("403")){showAuth("Your account is authenticated but not yet activated as Hive Mind Super Admin. Tell the owner once you have signed up; access will be enabled securely.");}else{showAuth(err.message);}}}
+$("refresh").onclick=()=>loadDashboard();
+document.querySelectorAll(".side button[data-page]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".side button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll("main section[id^=page-]").forEach(x=>x.classList.add("hidden"));$("page-"+b.dataset.page).classList.remove("hidden");const labels={overview:["Network overview","A live view of shared projects, knowledge and connected agents."],projects:["Project portfolio","Progress and status across shared workspaces."],knowledge:["Knowledge library","One expandable collection per subject."],family:["Hive Family","Explore agent knowledge, project origins and contributions."],agents:["Agents and access","Issue, review and revoke individual agent credentials."],activity:["Activity history","Recorded contributions and administrative actions."]};$("pageTitle").textContent=labels[b.dataset.page][0];$("pageSub").textContent=labels[b.dataset.page][1];});
+$("issueToken").onclick=async()=>{const b=$("issueToken");b.disabled=true;$("newToken").classList.remove("hidden");$("newToken").textContent="Generating secure credential…";try{const d=await api("/api/agents",{method:"POST",body:JSON.stringify({agent_id:$("newAgent").value,label:$("newLabel").value,access:$("newPermission").value})});$("newToken").innerHTML='<strong>Copy this token now. It will not be shown again.</strong><p><code id="issuedToken">'+esc(d.token)+'</code></p><button class="btn small" id="copyToken">Copy token</button><p class="muted">Agent: '+esc(d.agent_id)+' · Permissions: '+esc(d.permissions.join(", "))+'</p>'; $("copyToken").onclick=()=>navigator.clipboard.writeText(d.token);await loadDashboard();}catch(err){$("newToken").textContent=err.message;}finally{b.disabled=false;}};
+window.revokeAgent=async id=>{if(!confirm("Revoke this agent credential? It will immediately stop authenticating."))return;try{await api("/api/agents/"+encodeURIComponent(id)+"/revoke",{method:"POST",body:"{}"});await loadDashboard();}catch(err){alert(err.message)}};
+
+const SYNC_BASE_SHA_KEY="hive_project_notes_checkpoint_sha_v1";
+const SYNC_BASE_DATA_KEY="hive_project_notes_checkpoint_data_v1";
+let syncInProgress=false;
+function normalizedNotes(source=readProjectNotes()){
+ const result={};
+ for(const id of Object.keys(source||{}).sort()){
+  const item=source[id]||{};
+  const githubEmail=typeof item.githubEmail==="string"?item.githubEmail.trim():"";
+  const supabaseEmail=typeof item.supabaseEmail==="string"?item.supabaseEmail.trim():"";
+  if(githubEmail||supabaseEmail)result[id]={githubEmail,supabaseEmail};
+ }
+ return result;
+}
+function setCheckpoint(sha,projects){
+ localStorage.setItem(SYNC_BASE_SHA_KEY,sha);
+ localStorage.setItem(SYNC_BASE_DATA_KEY,JSON.stringify(normalizedNotes(projects||{})));
+}
+function updateNotesPanels(projects){
+ const normalized=normalizedNotes(projects||{});
+ localStorage.setItem(PROJECT_NOTES_KEY,JSON.stringify(normalized));
+ document.querySelectorAll(".project-notes").forEach(panel=>{
+  const item=normalized[panel.dataset.projectId]||{};
+  panel.querySelector('[data-note="githubEmail"]').value=item.githubEmail||"";
+  panel.querySelector('[data-note="supabaseEmail"]').value=item.supabaseEmail||"";
+  const status=panel.querySelector("[data-save-status]");
+  if(status)status.textContent="Updated from shared GitHub checkpoint.";
+ });
+}
+function refreshSyncIndicator(){
+ const current=JSON.stringify(normalizedNotes());
+ let baseline={};
+ try{baseline=JSON.parse(localStorage.getItem(SYNC_BASE_DATA_KEY)||"{}");}catch{}
+ const dirty=current!==JSON.stringify(normalizedNotes(baseline));
+ $("syncMessage").textContent=dirty?"Local changes pending · press Send Update to publish.":"Shared data checkpoint is in sync.";
+}
+async function checkSharedUpdates(showResult=true){
+ if(syncInProgress)return;
+ syncInProgress=true;
+ const message=$("syncMessage");
+ try{
+  const response=await fetch("/api/sync/check",{cache:"no-store"});
+  const result=await response.json();
+  if(!response.ok)throw new Error(result.error+(result.detail?" · "+result.detail:""));
+  const remoteProjects=normalizedNotes(result.data?.projects||{});
+  const baseSha=localStorage.getItem(SYNC_BASE_SHA_KEY);
+  let baseline={};
+  try{baseline=JSON.parse(localStorage.getItem(SYNC_BASE_DATA_KEY)||"{}");}catch{}
+  const current=normalizedNotes();
+  if(!baseSha){
+   if(Object.keys(current).length>0 && Object.keys(remoteProjects).length===0){
+    setCheckpoint(result.sha,remoteProjects);
+    message.textContent="Local notes found · ready to publish with Send Update.";
+   }else if(Object.keys(current).length>0 && Object.keys(remoteProjects).length>0 && JSON.stringify(current)!==JSON.stringify(remoteProjects)){
+    setCheckpoint(result.sha,remoteProjects);
+    message.textContent="First-sync conflict · both this browser and GitHub contain notes. Local notes were preserved; Send Update will publish this browser version if you choose.";
+   }else{
+    updateNotesPanels(remoteProjects);
+    setCheckpoint(result.sha,remoteProjects);
+    message.textContent=Object.keys(remoteProjects).length?"Downloaded shared checkpoint · revision "+(result.data.revision||0)+".":"No shared data changes.";
+   }
+  }else if(result.sha!==baseSha){
+   const dirty=JSON.stringify(current)!==JSON.stringify(normalizedNotes(baseline));
+   if(dirty){
+    message.textContent="Checkpoint conflict · cloud has newer data and this PC has unsent edits. Local notes were preserved.";
+   }else{
+    updateNotesPanels(remoteProjects);
+    setCheckpoint(result.sha,remoteProjects);
+    message.textContent="Downloaded shared checkpoint · revision "+(result.data.revision||0)+".";
+   }
+  }else{
+   refreshSyncIndicator();
+   if(showResult && message.textContent==="Shared data checkpoint is in sync.")message.textContent="No new shared data checkpoint.";
+  }
+ }catch(error){
+  message.textContent=error.message;
+ }finally{
+  syncInProgress=false;
+ }
+}
+async function sendSharedUpdate(){
+ const button=$("sendUpdate"),message=$("syncMessage");
+ if(syncInProgress)return;
+ button.disabled=true;syncInProgress=true;
+ try{
+  const check=await fetch("/api/sync/check",{cache:"no-store"});
+  const remote=await check.json();
+  if(!check.ok)throw new Error(remote.error+(remote.detail?" · "+remote.detail:""));
+  let baseSha=localStorage.getItem(SYNC_BASE_SHA_KEY);
+  if(!baseSha){
+   const local=normalizedNotes();
+   const cloud=normalizedNotes(remote.data?.projects||{});
+   if(Object.keys(local).length && !Object.keys(cloud).length){
+    setCheckpoint(remote.sha,cloud);baseSha=remote.sha;
+   }else{
+    updateNotesPanels(cloud);setCheckpoint(remote.sha,cloud);
+    message.textContent="Loaded the existing shared checkpoint. Review your notes, then press Send Update again if needed.";
+    return;
+   }
+  }
+  const baseline=(()=>{try{return normalizedNotes(JSON.parse(localStorage.getItem(SYNC_BASE_DATA_KEY)||"{}"));}catch{return {};}})();
+  const local=normalizedNotes();
+  if(remote.sha!==baseSha){
+   const cloud=normalizedNotes(remote.data?.projects||{});
+   const approved=confirm("A newer GitHub checkpoint exists. Publish this PC's local notes over the newer cloud notes? The previous cloud checkpoint remains in GitHub history.");
+   if(!approved){
+    message.textContent="Send cancelled · local notes and the newer cloud checkpoint were both preserved.";
+    return;
+   }
+   setCheckpoint(remote.sha,cloud);
+   baseSha=remote.sha;
+  }
+  if(JSON.stringify(local)===JSON.stringify(baseline)){
+   message.textContent="No changes to send · no GitHub commit created.";
+   return;
+  }
+  message.textContent="Publishing a new GitHub checkpoint…";
+  const response=await fetch("/api/sync/push",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({baseSha,projects:local})});
+  const result=await response.json();
+  if(response.status===409)throw new Error(result.error+" Check for updates to review the cloud checkpoint.");
+  if(!response.ok)throw new Error(result.error+(result.detail?" · "+result.detail:""));
+  setCheckpoint(result.sha,result.data.projects||{});
+  message.textContent=result.noChange?"No changes to send · no GitHub commit created.":"Published checkpoint revision "+result.data.revision+" · "+String(result.commitSha||"").slice(0,7)+".";
+ }catch(error){
+  message.textContent=error.message;
+ }finally{
+  syncInProgress=false;button.disabled=false;
+ }
+}
+$("sendUpdate").onclick=sendSharedUpdate;
+
+async function checkDashboardUpdate(){
+ const button=$("checkUpdate"),message=$("updateMessage"),install=$("installUpdate");
+ button.disabled=true;install.classList.add("hidden");message.textContent="Checking the private GitHub repository…";
+ try{
+  const response=await fetch("/api/update/check",{method:"POST",headers:{"Content-Type":"application/json"}});
+  const raw=await response.text();
+  let result;
+  try{result=JSON.parse(raw);}catch{throw new Error("The dashboard server running on port 4173 is an older version. Close it, download the latest Hive Mind ZIP, and launch start-dashboard.bat again. Server response: "+raw.slice(0,100));}
+  if(!response.ok)throw new Error(result.error+(result.detail?" · "+result.detail:""));
+  await checkSharedUpdates(true);
+  pendingUpdate=result;
+  if(result.updateAvailable){
+   message.textContent="Update available · "+result.version+" → "+result.latestVersion+" · "+result.latestSha.slice(0,7);
+   install.classList.remove("hidden");
+  }else{
+   message.textContent="You're up to date · "+result.version+" · "+result.latestSha.slice(0,7);
+  }
+ }catch(error){message.textContent=error.message;}
+ finally{button.disabled=false;}
+}
+async function waitForDashboardRestart(targetVersion){
+ const message=$("updateMessage");
+ message.textContent="Update accepted. Creating a backup and installing… This page will reconnect automatically.";
+ for(let attempt=0;attempt<150;attempt++){
+  await new Promise(resolve=>setTimeout(resolve,1000));
+  try{
+   const response=await fetch("/api/update/status",{cache:"no-store"});
+   if(!response.ok)continue;
+   const status=await response.json();
+   if(status.version===targetVersion){
+    message.textContent="Update installed · v"+status.version+". Reloading…";
+    window.location.reload();
+    return;
+   }
+  }catch{
+   // Expected while the old local server exits and the installer starts the new one.
+  }
+ }
+ message.textContent="The installer may still be working. Please wait, then refresh the dashboard. Your previous version is backed up.";
+}
+async function installDashboardUpdate(){
+ if(!pendingUpdate?.updateAvailable)return;
+ if(!confirm("Install the latest Hive Mind dashboard now? A backup will be created first. Your Supabase data and local configuration will not be changed."))return;
+ const button=$("installUpdate"),message=$("updateMessage");
+ button.disabled=true;message.textContent="Preparing the update and creating a backup…";
+ try{
+  const response=await fetch("/api/update/install",{method:"POST",headers:{"Content-Type":"application/json"}});
+  const raw=await response.text();
+  let result;
+  try{result=JSON.parse(raw);}catch{throw new Error("The installer response could not be read. The dashboard may be restarting; refresh in a moment.");}
+  if(!response.ok)throw new Error(result.error+(result.detail?" · "+result.detail:""));
+  await waitForDashboardRestart(pendingUpdate.latestVersion);
+ }catch(error){
+  message.textContent=error.message;
+  button.disabled=false;
+ }
+}
+$("checkUpdate").onclick=checkDashboardUpdate;
+$("installUpdate").onclick=installDashboardUpdate;
+
+if(accessToken){loadDashboard();}
+setInterval(()=>{if(accessToken && !document.hidden){loadDashboard();}},30000);
+</script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+const colors=["#ffffff","#f7f3e8","#e4ddc8","#c6b99b","#9a8c70","#6d6556","#343d43","#202a36","#111b2a","#243d4b","#326171","#448b91","#65b7ad","#a6d5c3","#e4e9cf","#f3d48b","#e7a65e","#cf7657","#a84f59","#783f68","#a77bb3","#c7a5d6","#7778a8","#4b527d","#426d9d","#6799c2","#a9c9d8","#d6e6e4","#8d9fa4","#566b78","#314d5c","#172f42"];
+const palette=colors.map(h=>{const n=parseInt(h.slice(1),16);return new THREE.Vector3(((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255);});
+const vs="varying vec2 vUv;\nvoid main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}";
+const fs="precision highp float;\nvarying vec2 vUv;uniform sampler2D tScene;uniform vec2 uResolution;uniform vec3 uPalette[32];\nfloat lum(vec3 c){return dot(c,vec3(.299,.587,.114));}\nvoid main(){vec2 px=1.0/uResolution;vec2 uv=(floor(vUv*uResolution)+.5)*px;vec3 c=texture2D(tScene,uv).rgb;float edge=0.0;edge=max(edge,abs(lum(c)-lum(texture2D(tScene,uv+vec2(px.x,0.0)).rgb)));edge=max(edge,abs(lum(c)-lum(texture2D(tScene,uv-vec2(px.x,0.0)).rgb)));edge=max(edge,abs(lum(c)-lum(texture2D(tScene,uv+vec2(0.0,px.y)).rgb)));edge=max(edge,abs(lum(c)-lum(texture2D(tScene,uv-vec2(0.0,px.y)).rgb)));float d=mod(floor(gl_FragCoord.x)*2.0+floor(gl_FragCoord.y)*3.0+floor(gl_FragCoord.x)*floor(gl_FragCoord.y)*2.0,16.0)/16.0-.5;c=clamp(c+d*.032,0.0,1.0);vec3 best=uPalette[0];float bd=1000.0;for(int i=0;i<32;i++){vec3 q=(c-uPalette[i])*vec3(1.0,1.08,.94);float dd=dot(q,q);if(dd<bd){bd=dd;best=uPalette[i];}}float ink=smoothstep(.055,.19,edge);best=mix(best,vec3(.075,.09,.12),ink*.76);gl_FragColor=vec4(best,1.0);}";
+const live=new Map(),reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mat=(c,extra={})=>new THREE.MeshStandardMaterial({color:c,roughness:.92,metalness:0,...extra});
+function cube(g,w,h,d,m,x,y,z){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;g.add(o);return o;}
+function cyl(g,rt,rb,h,m,x,y,z,n=8){const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,n),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;g.add(o);return o;}
+function agent(g,x,z,color,phase){
+ const root=new THREE.Group();root.position.set(x,.62,z);g.add(root);const suit=mat(color),dark=mat("#27333d"),face=mat("#f1d8ad"),visor=mat("#172a39");
+ const torso=new THREE.Group();root.add(torso);cube(torso,.34,.38,.24,suit,0,.35,0);cube(torso,.27,.25,.25,face,0,.69,.015);cube(torso,.22,.09,.035,visor,0,.70,.15);
+ cube(torso,.07,.055,.025,mat("#77e6dc"),-.055,.71,.172);cube(torso,.07,.055,.025,mat("#77e6dc"),.055,.71,.172);
+ const al=new THREE.Group(),ar=new THREE.Group();al.position.set(-.22,.48,0);ar.position.set(.22,.48,0);torso.add(al,ar);cube(al,.12,.30,.13,suit,0,-.12,0);cube(ar,.12,.30,.13,suit,0,-.12,0);
+ const ll=new THREE.Group(),lr=new THREE.Group();ll.position.set(-.10,.17,0);lr.position.set(.10,.17,0);root.add(ll,lr);cube(ll,.13,.25,.14,dark,0,-.10,0);cube(lr,.13,.25,.14,dark,0,-.10,0);cube(ll,.16,.07,.22,dark,0,-.22,.035);cube(lr,.16,.07,.22,dark,0,-.22,.035);
+ return {root,torso,al,ar,ll,lr,phase};
+}
+function mount(canvas){
+ if(live.has(canvas))return;const fallback=canvas.parentElement.querySelector(".diorama-fallback");let renderer;
+ try{renderer=new THREE.WebGLRenderer({canvas,antialias:false,alpha:false,powerPreference:"low-power"});}catch(e){if(fallback)fallback.hidden=false;return;}
+ renderer.setPixelRatio(1);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
+ const scene=new THREE.Scene();scene.background=new THREE.Color("#ffffff");
+ const camera=new THREE.PerspectiveCamera(27,1,.1,100);camera.position.set(10,8.2,10);
+ const controls=new OrbitControls(camera,canvas);controls.target.set(0,.55,0);controls.enablePan=false;controls.enableDamping=false;controls.autoRotate=false;controls.minDistance=8;controls.maxDistance=17;controls.minPolarAngle=.45;controls.maxPolarAngle=1.35;controls.update();
+ const resetPos=camera.position.clone(),resetTarget=controls.target.clone();
+ scene.add(new THREE.HemisphereLight("#f7fbff","#53616a",2.1));
+ const key=new THREE.DirectionalLight("#fff1d6",3);key.position.set(-5,10,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.camera.left=-9;key.shadow.camera.right=9;key.shadow.camera.top=9;key.shadow.camera.bottom=-9;scene.add(key);
+ const fill=new THREE.DirectionalLight("#a8d9ff",1.1);fill.position.set(7,5,-5);scene.add(fill);
+ const slab=new THREE.Group();scene.add(slab);
+ cube(slab,8,.48,5.4,mat("#354a50"),0,.05,0);cube(slab,7.78,.12,5.18,mat("#c8b99b"),0,.34,0);cube(slab,7.56,.10,4.96,mat("#91b99c"),0,.445,0);
+ const path=mat("#e8dfc9");for(let i=0;i<5;i++){cube(slab,.42,.025,.27,path,-.28+i*.48,.51,1.38);cube(slab,.28,.025,.34,path,1.56,.51,.8-i*.42);}
+ for(let i=0;i<3;i++){const x=-2.65+i*2.65;cube(slab,.9,.62,.68,mat("#3e5668"),x,.82,-1.45);for(let j=0;j<3;j++)cube(slab,.62,.055,.035,mat(i===1?"#70e0d1":"#e6b66d"),x,.65+j*.16,-1.095);cube(slab,.72,.08,.52,mat("#1c2d3d"),x,1.17,-1.45);}
+ cube(slab,1.65,.22,1.45,mat("#465b72"),0,.62,.15);cube(slab,1.28,.20,1.08,mat("#263e58"),0,.82,.15);cyl(slab,.54,.68,.38,mat("#5a7890"),0,1.10,.15);
+ const core=new THREE.Mesh(new THREE.OctahedronGeometry(.68,0),mat("#e4a5d2",{emissive:"#6d2c70",emissiveIntensity:.22}));core.position.set(0,1.88,.15);core.castShadow=true;slab.add(core);
+ const ring=new THREE.Mesh(new THREE.TorusGeometry(.91,.055,5,12),mat("#67d9cf",{emissive:"#267e78",emissiveIntensity:.28}));ring.rotation.x=Math.PI/2;ring.position.set(0,1.55,.15);slab.add(ring);
+ const satellites=[];for(let i=0;i<3;i++){const g=new THREE.Group();slab.add(g);g.add(new THREE.Mesh(new THREE.OctahedronGeometry(.19,0),mat(["#f0c879","#7ccdc4","#b89bd2"][i])));satellites.push(g);}
+ for(const [x,z] of [[-3.2,1.7],[3.2,1.7],[-3.3,-.25],[3.3,-.25]]){cyl(slab,.045,.07,.32,mat("#795d46"),x,.68,z,5);const crown=new THREE.Mesh(new THREE.OctahedronGeometry(.34,0),mat("#5c9b79"));crown.position.set(x,.98,z);crown.castShadow=true;slab.add(crown);}
+ const cast=[agent(slab,-2.45,1.42,"#6da6d0",0),agent(slab,2.45,1.42,"#d88a75",2.1),agent(slab,0,2.05,"#a78ac6",4.2)];
+ const rt=new THREE.WebGLRenderTarget(2,2,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter,format:THREE.RGBAFormat,depthBuffer:true});
+ const uniforms={tScene:{value:rt.texture},uResolution:{value:new THREE.Vector2(2,2)},uPalette:{value:palette}};
+ const pm=new THREE.ShaderMaterial({uniforms,vertexShader:vs,fragmentShader:fs,depthTest:false,depthWrite:false});
+ const ps=new THREE.Scene(),pc=new THREE.OrthographicCamera(-1,1,1,-1,0,1),quad=new THREE.Mesh(new THREE.PlaneGeometry(2,2),pm);ps.add(quad);
+ function resize(){const r=canvas.getBoundingClientRect();if(r.width<2||r.height<2)return;const w=Math.floor(r.width),h=Math.floor(r.height);renderer.setSize(w,h,false);rt.setSize(w,h);uniforms.uResolution.value.set(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();}
+ const ro=new ResizeObserver(resize);ro.observe(canvas);resize();let raf=0,dead=false;
+ function draw(now){if(dead)return;const t=reduced?0:now*.001;core.rotation.y=t*.34;core.rotation.x=Math.sin(t*.7)*.08;core.scale.setScalar(1+Math.sin(t*2.2)*.035);ring.rotation.z=t*.55;
+ satellites.forEach((g,i)=>{const a=t*.55+i*Math.PI*2/3;g.position.set(Math.cos(a)*1.18,1.58+Math.sin(t*1.7+i)*.12,.15+Math.sin(a)*.82);});
+ cast.forEach(a=>{const p=t*3+a.phase,step=reduced?0:Math.sin(p)*.48;a.root.position.y=.62+(reduced?0:Math.abs(Math.sin(p*2))*.055);a.ll.rotation.x=step;a.lr.rotation.x=-step;a.al.rotation.x=-step*.55;a.ar.rotation.x=step*.55;a.torso.rotation.z=reduced?0:Math.sin(p)*.025;});
+ renderer.setRenderTarget(rt);renderer.setClearColor("#ffffff",1);renderer.clear(true,true,true);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(ps,pc);raf=requestAnimationFrame(draw);}
+ canvas.addEventListener("keydown",e=>{if(e.key.toLowerCase()==="r"){e.preventDefault();camera.position.copy(resetPos);controls.target.copy(resetTarget);controls.update();}});
+ const item={dispose(){dead=true;cancelAnimationFrame(raf);ro.disconnect();controls.dispose();rt.dispose();pm.dispose();quad.geometry.dispose();renderer.dispose();}};live.set(canvas,item);raf=requestAnimationFrame(draw);
+}
+function scan(){document.querySelectorAll(".hive-diorama-canvas").forEach(mount);for(const [c,i] of live)if(!c.isConnected){i.dispose();live.delete(c);}}
+const observer=new MutationObserver(scan);observer.observe(document.body,{childList:true,subtree:true});scan();
+</script>
+
+</body></html>
