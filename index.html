@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0c1020"><title>Hive Mind — Control Centre</title>
+<meta name="theme-color" content="#0c1020"><meta name="robots" content="noindex,nofollow"><title>Hive Mind — Control Centre</title>
 <style>
 :root{color-scheme:dark;--bg:#0a0e19;--panel:#111827;--panel2:#151e30;--line:#263247;--muted:#8b9bb4;--text:#edf3ff;--cyan:#65e4e0;--violet:#a99bff;--green:#62d7a4;--amber:#f3c978;--red:#ff8290}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -15%,#1c2a47 0,transparent 42%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
@@ -16,13 +16,15 @@
 .diorama-fallback{position:absolute;inset:0;display:grid;place-items:center;padding:20px;background:#fff;color:#53616b;font-size:11px;text-align:center}
 .diorama-fallback[hidden]{display:none}
 .family-root{border:1px solid var(--cyan);border-radius:16px;padding:18px;text-align:center;background:linear-gradient(135deg,#10253a,#101a2b);max-width:520px;margin:10px auto 24px}.family-root h2{margin:0 0 5px;font-size:20px}.family-root p{margin:0;color:var(--muted);font-size:11px}.family-branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.family-branch{border:1px solid var(--line);border-radius:13px;background:#0d1625;overflow:hidden}.family-branch summary{cursor:pointer;list-style:none;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}.family-branch summary::-webkit-details-marker{display:none}.family-branch summary:after{content:"＋";color:var(--cyan)}.family-branch[open] summary:after{content:"−"}.family-agent-name{font-weight:750}.family-agent-meta{font-size:10px;color:var(--muted);margin-top:3px}.family-body{padding:0 14px 14px}.family-block{border-top:1px solid #263247;padding:11px 0}.family-block h5{margin:0 0 7px;font-size:11px;color:#9ccce3;text-transform:uppercase;letter-spacing:.06em}.family-entry{font-size:11px;padding:6px 0;border-top:1px solid #202c3e}.family-entry small{display:block;color:var(--muted);margin-top:3px}.family-owner{border:1px dashed #53627a;border-radius:12px;padding:13px;margin:0 auto 16px;max-width:520px;text-align:center}.family-owner strong{display:block}.family-empty{font-size:11px;color:var(--muted);padding:4px 0}.family-note{font-size:10px;color:var(--muted);margin-top:10px}
+/* Hosted GitHub Pages build: local-only GitHub CLI checkpoint and updater are unavailable. */
+#checkUpdate,#sendUpdate,#installUpdate,#updateMessage,#syncMessage{display:none!important}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="top">
  <div class="brand"><div class="mark">H</div><div><h1>HIVE MIND</h1><small>SHARED INTELLIGENCE NETWORK</small></div></div>
- <div class="topright"><span class="pill app-version" id="appVersion">PUBLIC DASHBOARD v1.1.8</span><span class="pill"><i class="dot"></i><span id="topStatus">AUTH REQUIRED</span></span><button class="btn small hidden" id="signout">Sign out</button></div>
+ <div class="topright"><span class="pill app-version" id="appVersion">DASHBOARD v1.1.7</span><span class="pill"><i class="dot"></i><span id="topStatus">AUTH REQUIRED</span></span><button class="btn small hidden" id="signout">Sign out</button></div>
 </header>
 <section id="loginView" class="login">
  <div class="brand" style="margin-bottom:20px"><div class="mark">H</div><div><h1>CONTROL CENTRE</h1><small>PRIVATE ADMIN ACCESS</small></div></div>
@@ -48,7 +50,7 @@
   <button data-page="activity">↗ &nbsp; Activity log</button>
  </aside>
  <main class="content">
-  <div class="pagehead"><div><h2 id="pageTitle">Network overview</h2><p id="pageSub">A live view of shared projects, knowledge and connected agents.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="btn" id="refresh">↻ Refresh</button></div></div>
+  <div class="pagehead"><div><h2 id="pageTitle">Network overview</h2><p id="pageSub">A live view of shared projects, knowledge and connected agents.</p><div id="updateMessage" class="msg" role="status">Dashboard updater ready</div><div id="syncMessage" class="msg" role="status">Shared data checkpoint ready.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="btn" id="checkUpdate">Check for updates</button><button class="btn primary" id="sendUpdate">Send Update</button><button class="btn primary hidden" id="installUpdate">Install update</button><button class="btn" id="refresh">↻ Refresh</button></div></div>
   <section id="page-overview">
    <div class="grid" id="stats"></div>
    <div class="twocol section">
